@@ -1,0 +1,28 @@
+O que JDK?
+O JDK, conforme o próprio nome sugere, é um kit de desenvolvimento que permite aos programadores desenvolverem aplicações em Java.
+
+AVD (Android Virtual Device)
+O Android Emulator executa uma pilha completa do sistema Android, até o nível do kernel, que inclui um conjunto de aplicativos pré-instalados (como o discador) que podem ser acessados dos seus aplicativos. Você pode escolher qual versão do sistema Android deseja executar no emulador ao criar os AVDs.
+
+O que é Grandle:
+Gradle, um kit de ferramentas de compilação avançado, para automatizar e gerenciar o processo de compilação, permitindo definir configurações de compilação personalizadas e flexíveis.
+
+O que é XML:
+https://www.tecmundo.com.br/programacao/1762-o-que-e-xml-.htm
+
+Android:minSdkVersion especifica a versão mínima do Android para executar o aplicativo.
+Exemplo: <?xml version="1.0
+
+Exemplo de uma activity dentro da AndroidManifest.xml.
+Sempre que for declarar uma nova acitivty é aqui.
+
+<activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+</activity>
+
+Componente do Arquivo AndroidManifest.xml
+Descrever os componentes do aplicativo, que abrangem atividades, serviços, receptores de transmissão e provedores de conteúdo que compõem o aplicativo.

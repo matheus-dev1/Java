@@ -6,7 +6,42 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
-			<item value="C:\Matheus\Study\IT\Java"/>
+			<item value="C:\Users\mathe\Desktop\Matheus\Java\jdbc-aula-8-projeto-inicial\loja-virtual-view-repository"/>
+			<item value="C:\Users\mathe\Desktop\Matheus\Java\jdbc-aula-8-projeto-inicial"/>
+			<item value="C:\Users\mathe\Desktop\Matheus\Java\controle-produtos"/>
+			<item value="C:\Users\mathe\Desktop\Matheus\Java\gerenciador"/>
+			<item value="C:\Users\mathe\Desktop\gerenciador"/>
+			<item value="C:\Users\mathe\Desktop\Matheus\Java\gerenciador2"/>
+			<item value="C:\Users\mathe\Desktop\Matheus\Java\media"/>
+			<item value="C:\Users\mathe\Desktop\Matheus\Java\programa"/>
+			<item value="C:\Users\mathe\Desktop\Matheus\Java"/>
+		</list>
+	</section>
+	<section name="ResourceNavigator">
+		<item key="ResourceViewer.STORE_SORT_TYPE" value="1"/>
+		<item key="ResourceWorkingSetFilter.STORE_WORKING_SET" value="Aggregate for window 1621446906831"/>
+	</section>
+	<section name="SaveAsDialogSettings">
+		<item key="DIALOG_X_ORIGIN" value="619"/>
+		<item key="DIALOG_Y_ORIGIN" value="119"/>
+		<item key="DIALOG_WIDTH" value="700"/>
+		<item key="DIALOG_HEIGHT" value="645"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
+	</section>
+	<section name="NewWizardAction">
+	</section>
+	<section name="ExternalProjectImportWizard">
+		<item key="WizardProjectsImportPage.STORE_NESTED_PROJECTS" value="false"/>
+		<item key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID" value="false"/>
+		<item key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED" value="false"/>
+		<item key="WizardProjectsImportPage.STORE_CLOSE_CREATED_PROJECTS_ID" value="false"/>
+		<item key="WizardProjectsImportPage.STORE_HIDE_CONFLICTING_PROJECTS_ID" value="false"/>
+		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="C:\Users\mathe\Desktop\Matheus\Java\gerenciador2"/>
+			<item value="C:\Users\mathe\Desktop\Matheus\Java\Calculadora2"/>
+		</list>
+		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
+			<item value=""/>
 		</list>
 	</section>
 </section>
