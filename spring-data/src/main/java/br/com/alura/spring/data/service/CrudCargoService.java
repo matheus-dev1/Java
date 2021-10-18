@@ -51,7 +51,7 @@ public class CrudCargoService {
 	}
 	
 	private void salvar(Scanner scanner) {
-		System.out.println("Descricao do cargo");
+		System.out.println("Descricao do cargo(não pode dar espaço)");
 		String descricao = scanner.next();
 		Cargo cargo = new Cargo();
 		cargo.setDescricao(descricao);

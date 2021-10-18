@@ -1,0 +1,75 @@
+<html>
+<!-- A propriedade th:replace para colocar algo aqui dentro desta tag.-->
+<!-- Para acessar fragmento de outra pagina, usamos ~{nomeDoArquivo :: nomeDoFragmento} -->
+<head th:replace="~{base :: head}">
+<title>Home</title>
+</head>
+<body>
+	<div th:replace="~{base :: logo}"></div>
+	<div class="container">
+		<div th:replace="~{base :: titulo('Meus Pedidos')}"></div>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between mb-3">
+				<ul class="navbar-nav">
+					<!-- O th:classappend coloca uma classe atraves do thymelead, seno que dentro dele nos podemos colocar teste logico -->
+					<li class="nav-item"><a th:classappend="${statusDoPedido} == null ? 'active'" class="nav-link" th:href="@{/usuario/pedido}">Todos</a></li>
+					<li class="nav-item"><a th:classappend="${statusDoPedido} == 'aguardando' ? 'active'" class="nav-link" th:href="@{/usuario/pedido/aguardando}">Aguardando</a></li>
+					<li class="nav-item"><a th:classappend="${statusDoPedido} == 'aprovado' ? 'active'" class="nav-link" th:href="@{/usuario/pedido/aprovado}">Aprovado</a></li>
+					<li class="nav-item"><a th:classappend="${statusDoPedido} == 'entregue' ? 'active'" class="nav-link" th:href="@{/usuario/pedido/entregue}">Entregue</a></li>
+				</ul>
+			<div>
+				<a href="/pedido/formulario">
+					<button class="btn btn-outline-secondary my-2 my-sm-0"
+						type="submit">Novo</button>
+				</a>
+			</div>
+		</nav>
+
+		<!-- Acessando cada pedido da lista de pedidos recebida -->
+		<div class="card mb-3" th:each="pedido : ${pedidos}">
+			<div class="row">
+				<div class="col">
+					<!-- th:block serve apenas para executar um comando - o th:switch é uma propriedade que muda o codigo html executado de acordo com um parametro -->
+					<!-- o name() de um ENUM é o valor do enum em String -->
+					<th:block th:switch="${pedido.statusPedido.name()}">
+					<!-- Caso o status do pedido for algum determinado ele exibe a div correspondente. -->
+						<div th:case="'AGUARDANDO'" class="card-header alert-warning" th:text="${pedido.nomeDoProduto}">Nome do Produto</div>
+						<div th:case="'APROVADO'" class="card-header alert-success" th:text="${pedido.nomeDoProduto}">Nome do Produto</div>
+						<div th:case="'ENTREGUE'" class="card-header alert-info" th:text="${pedido.nomeDoProduto}">Nome do Produto</div>
+					</th:block>
+				</div>
+			</div>
+
+			<div class="card-body row">
+				<div class="col-12 col-sm-8 col-lg-8 mb-3">
+					<div class="row">
+						<div class="col-md-6">
+						<!--  -->
+							Valor: R$: <span th:if="${pedido} != null ? 'Valor não inserido pelo vendedor!'" th:text="${#numbers.formatDecimal(pedido.valorNegociado, 3, 'POINT', 2, 'COMMA')}">200,99</span>
+						</div>
+						<div class="col-md-6">
+							Data da Entrega: <span th:text="${#temporals.format(pedido.localDaEntrega, 'dd/MM/yyyy')}">10/02/2020</span>
+						</div>
+					</div>
+
+					<div>Produto</div>
+					<!-- Do tipo value -->
+					<div>
+						<input class="form-control" th:value="${pedido.urlProduto}"
+							value="Url do Produto" />
+					</div>
+					<div>
+						<textarea class="form-control" th:text="${pedido.descricao}">Descrição do Pedido</textarea>
+					</div>
+				</div>
+
+				<div class="col-12 col-sm-4 col-lg-4">
+					<!-- Do tipo imagem -->
+					<img class="img-thumbnail img-fluid" th:src=${pedido.urlImagem}
+						src="imagem" />
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>

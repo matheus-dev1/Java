@@ -7,7 +7,6 @@
 			<item value="org.eclipse.jdt.ui.Java"/>
 		</list>
 		<list key="ImportExportPage.STORE_EXPANDED_IMPORT_CATEGORIES">
-			<item value="org.eclipse.ui.Basic"/>
 			<item value="org.eclipse.m2e"/>
 		</list>
 	</section>
@@ -40,6 +39,7 @@
 	<section name="ZipFileImportWizard">
 		<item key="WizardZipFileResourceImportPage1.STORE_OVERWRITE_EXISTING_RESOURCES_ID" value="false"/>
 		<list key="WizardZipFileResourceImportPage1.STORE_SOURCE_NAMES_ID">
+			<item value="C:\Users\mathe\Desktop\modelo.zip"/>
 			<item value="C:\Users\mathe\Desktop\bytebank-herdado-conta.1.0.jar"/>
 		</list>
 	</section>
@@ -58,10 +58,10 @@
 		</list>
 	</section>
 	<section name="NewWizardAction">
-		<item key="NewWizardSelectionPage.STORE_SELECTED_ID" value="org.eclipse.jdt.ui.wizards.NewClassCreationWizard"/>
+		<item key="NewWizardSelectionPage.STORE_SELECTED_ID" value="org.eclipse.jdt.junit.wizards.NewTestCaseCreationWizard"/>
 		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
 			<item value="org.eclipse.jdt.ui.java"/>
-			<item value="org.eclipse.jpt.jaxb"/>
+			<item value="org.eclipse.jdt.ui.java/org.eclipse.jdt.junit"/>
 		</list>
 	</section>
 	<section name="FileSystemImportWizard">

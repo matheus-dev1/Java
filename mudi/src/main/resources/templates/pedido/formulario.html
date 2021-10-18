@@ -1,0 +1,63 @@
+<html>
+<head th:replace="~{base :: head}">
+<title>Novo Pedido - Formulario</title>
+</head>
+<body>
+	<div th:replace="~{base :: logo}"></div>
+	<div class="container">
+		<div th:replace="~{base :: titulo('Novo Pedido')}"></div>
+		<!--  Dica: Se preenchemos com dados e fazer a requisição clicando no botão, nos podemos entrar no F12 e em Network
+		 para ver os parametros passados e os valores de cada parametro -->
+
+		<!-- A tag th:object recebe um objeto. -->
+		<!-- Aqui estamos associado um formulario a um objeto, no caso o objeto em que armazena
+		  e que representa os valores deste formulario. Obs: A primeira letra precisa ser minuscula.-->
+		  <!-- Se a aplicação tiver contexto o thymelead adiciona a url da requisição -->
+		<form th:object="${requisicaoNovoPedidoDTO}" th:action="@{/pedido/novoPedido}" method="post">
+			<div class="form-group">
+				<label for="nomeProduto">Produto</label>
+				<!-- A tag th:field é uma tag relacionada ao campo de input/entrada de dados pelo frontend  -->
+				<!-- Como eu associei um objeto a este formuario, este input também sera associado a este objeto. -->
+				<!-- Obs: Automaticamente a tah th:field vai criar os atributos, id, name e vai gerenciar o value, ou seja,
+				 não é ais necessario preencher o name, id ou value -->
+				<input th:field="*{nomeProduto}" type="text" class="form-control"
+					id="entradaProduto" name="nomeProduto"
+					aria-describedby="nomePrduto"
+					placeholder="Insira o nome de um Produto"> <small
+					id="entradaProduto" class="form-text text-muted">Informe
+					qual o nome do Produto</small>
+				<div th:errors="*{nomeProduto}" class="alert alert-danger m-2"
+					role="alert">A simple danger alert—check it out!</div>
+			</div>
+			<div class="form-group">
+				<label for="urlProduto">URL</label> <input th:field="*{urlProduto}"
+					type="text" class="form-control" id="entradaUrlProduto"
+					name="urlProduto" aria-describedby="urlProduto"
+					placeholder="Insira a URL de um Produto"> <small
+					id="entradaUrlProduto" class="form-text text-muted">Informe
+					qual a URL do Produto</small>
+				<div th:errors="*{urlProduto}" class="alert alert-danger m-2"
+					role="alert">A simple danger alert—check it out!</div>
+			</div>
+			<div class="form-group">
+				<label for="urlImagem">Imagem</label> <input th:field="*{urlImagem}"
+					type="text" class="form-control" id="entradaUrlImagem"
+					name="urlImagem" aria-describedby="urlImagem"
+					placeholder="Insira a URL de uma Imagem"> <small
+					id="entradaUrlImagem" class="form-text text-muted">Informe
+					qual a URL da Imagem do Produto</small>
+				<div th:errors="*{urlImagem}" class="alert alert-danger m-2"
+					role="alert">A simple danger alert—check it out!</div>
+			</div>
+			<div class="form-group">
+				<label for="descricao">Descrição</label>
+				<textarea class="form-control" id="descricao" name="descricao"
+					aria-describedby="descricao"
+					placeholder="Insira uma descrição para o seu produto"></textarea>
+			</div>
+			<button type="submit" class="btn btn-secondary">Cadastrar
+				Produto</button>
+		</form>
+	</div>
+</body>
+</html>

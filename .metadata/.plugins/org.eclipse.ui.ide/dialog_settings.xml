@@ -6,6 +6,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="E:\Java\tdd"/>
 			<item value="C:\Users\mathe\Desktop\Matheus\Java\jdbc-aula-8-projeto-inicial\loja-virtual-view-repository"/>
 			<item value="C:\Users\mathe\Desktop\Matheus\Java\jdbc-aula-8-projeto-inicial"/>
 			<item value="C:\Users\mathe\Desktop\Matheus\Java\controle-produtos"/>
@@ -37,11 +38,13 @@
 		<item key="WizardProjectsImportPage.STORE_CLOSE_CREATED_PROJECTS_ID" value="false"/>
 		<item key="WizardProjectsImportPage.STORE_HIDE_CONFLICTING_PROJECTS_ID" value="false"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="E:\Java\Java"/>
 			<item value="C:\Users\mathe\Desktop\Matheus\Java\gerenciador2"/>
 			<item value="C:\Users\mathe\Desktop\Matheus\Java\Calculadora2"/>
 		</list>
 		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
 			<item value=""/>
+			<item value="C:\Users\mathe\Desktop\Matheus\Java\bytebank-composto"/>
 		</list>
 	</section>
 </section>

@@ -1,0 +1,31 @@
+<html>
+<!-- A propriedade th:replace para colocar algo aqui dentro desta tag.-->
+<!-- Para acessar fragmento de outra pagina, usamos ~{nomeDoArquivo :: nomeDoFragmento} -->
+<head th:replace="~{base :: head}">
+<title>Home</title>
+</head>
+<body>
+	<div th:replace="~{base :: logo}"></div>
+	<div class="container">
+		<div th:replace="~{base :: titulo('Login')}"></div>
+
+		<div class="card mb-3">
+			<form th:action="@{/login}" class="card-body" method="post">
+				<div>
+					<div class="form-group">
+						<label for="username">Usuario</label>
+						<input type="text"name="username" class="form-control" placeholder="Nome do Usuario" />
+					</div>
+				</div>
+				<div>
+					<div class="form-group">
+						<label for="password">Senha</label>
+						<input type="password" name="password" class="form-control" placeholder="Senha do Usuario" />
+					</div>
+				</div>
+				<input type="submit" class="btn btn-success" value="Entrar" />
+			</form>
+		</div>
+	</div>
+</body>
+</html>

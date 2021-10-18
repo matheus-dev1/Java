@@ -1,0 +1,128 @@
+
+<html>
+<!-- A propriedade th:replace para colocar algo aqui dentro desta tag.-->
+<!-- Para acessar fragmento de outra pagina, usamos ~{nomeDoArquivo :: nomeDoFragmento} -->
+<head th:replace="~{base :: head}">
+<title>Home</title>
+</head>
+<body onload="onLoad()">
+	<div th:replace="~{base :: logo}"></div>
+	<div class="container" id="ofertas">
+		<div th:replace="~{base :: titulo('Faça sua oferta!')}"></div>
+
+		<div class="card mb-3" v-for="pedido in pedidos">
+			<div class="row">
+				<div class="col">
+					<div class="card-header alert-info">{{pedido.nomeDoProduto}}</div>
+				</div>
+			</div>
+
+			<div class="card-body row">
+				<div class="col-12 col-sm-8 col-lg-8 mb-3">
+					<div>Produto</div>
+					<div>
+						<a v-bind:href="pedido.urlProduto">{{pedido.nomeDoProduto}}</a>
+					</div>
+					<div>
+						<textarea disabled="disabled" class="form-control">{{pedido.descricao}}</textarea>
+					</div>
+					<div class="row mt-3">
+						<div class="col-md-6">
+							Valor em R$: <input v-bind:class="{'is-invalid':pedido.erros.valor !== ''}" class="form-control" v-model="pedido.valorNegociado" />
+							<div v-if="pedido.erros.valor" class="invalid-feedback">{{pedido.erros.valor}}</div>
+						</div>
+						<div class="col-md-6">
+						<!-- v-bind-class adiciona uma classe caso um valor for verdadeiro -->
+							Data da Entrega: <input v-bind:class="{'is-invalid':pedido.erros.dataDaEntrega !== ''}" class="form-control" v-model="pedido.localDaEntrega" />
+								<!-- If do Vue.js -->
+							<div v-if="pedido.erros.dataDaEntrega" class="invalid-feedback">{{pedido.erros.dataDaEntrega}}</div>
+						</div>
+					</div>
+					<div class="mt-2">
+						<label>Coméntario</label>
+						<!-- A diretiva v-model vai colocar o valor de pedido.comentario na propriedade value deste textarea -->
+						<textarea class="form-control" v-model="pedido.comentario"></textarea>
+					</div>
+				</div>
+
+				<div class="col-12 col-sm-4 col-lg-4">
+					<img class="img-thumbnail img-fluid" v-bind:src="pedido.urlImagem" />
+				</div>
+				<!-- No Vue temos um v-on: que ele faz uma ação, exemplo v-on:click ao clicar na tag onde está 
+				isso, ele vai executar uma ação que você passar pra ele. -->
+				<button v-if="pedido.ofertaEnviada"
+					v-on:click="enviarOferta(pedido)" class="btn btn-success"
+					type="submit">Oferta Enviada!</button>
+				<button v-else v-on:click="enviarOferta(pedido)"
+					class="btn btn-primary" type="submit">Enviar Oferta!</button>
+			</div>
+		</div>
+	</div>
+	<script>
+		function onLoad() {
+			var app = new Vue(
+			{
+				el : '#ofertas',
+				data : {
+					pedidos : []
+				},
+				// Está função é exeutada automaticamente.
+				mounted () {
+					// Metodo GET	
+					axios
+						.get('http://localhost:8080/api/pedidos/aguardando')
+						// .data é onde fica todo conteudo da requisição
+						.then(response => {
+							// Criando um looping para cada pedido e criando em cada pedido um atributo
+							// e atribuindo a este  atributo um booleando com o valor de false.
+							response.data.forEach(pedido => {
+								pedido.ofertaEnviada = false
+								// Criano mais um objeto erros com as propriedades valor e dataDaEntrega de cada oferta.
+								pedido.erros = {
+										valor: '',
+										dataDaEntrega: ''	
+								}
+							})
+							this.pedidos = response.data
+						})
+				},
+				// Onde declaramos os nosso metodos.
+				methods: {
+					// A mesma coisa de um json, propriedade definindo o nome da função e um valor definindo
+					// o que tem dentro deste nome, que no caso é um função que recebe o nome da propriedade.
+					enviarOferta: function(pedido) {
+						pedido.erros = {
+								valor: '',
+								dataDaEntrega: ''	
+						};
+						// Estámos fazendo fazendo um request, enviado dados via http, sendo que estes dados, são enviados
+						// para a classe que possui o metodo http correspondente, no caso a classe criaOferta, que recebe 
+						// como parametro um objeto o tipo RequisicaoNovaOferta que possui os exatos atributos em que 
+						// estamos enviando. || Estes dado estão sendo enviados pelo corpo da requisição (Request Body)
+						axios.post('http://localhost:8080/api/ofertas', {
+							pedidoId: pedido.id,
+							valor: pedido.valorNegociado,
+							dataDaEntrega: pedido.localDaEntrega,
+							comentario: pedido.comentario
+						})
+						.then(response => pedido.ofertaEnviada = true)
+						.catch(error => {
+							// Nos conseguimos pegar informações de requisiçoes do navegador.
+							// Obs: o nome que colocamos no catch, não é referente a uma propriedade 
+							// proprieamente dita, é apenas um nome que damos ao resultado da requisição
+							// que está no navegador.
+							// Porém a partir deste nome temos que passar os parametros corretos
+							error.response.data.errors.forEach(error => {
+								// Associando cada field de cada propriedade(valor ou dataDaEntrea) recebe o valor de defaultMessage
+								pedido.erros[error.field] = error.defaultMessage;
+							})
+						})
+					}
+				}
+			});
+		}
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</body>
+</html>
