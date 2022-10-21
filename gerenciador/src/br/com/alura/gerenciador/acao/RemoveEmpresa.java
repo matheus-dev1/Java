@@ -8,17 +8,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.alura.gerenciador.modelo.Banco;
 
-public class RemoveEmpresa implements Acao{
-	public String executa(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException {
-			String paramId = request.getParameter("id");
-			Integer id = Integer.valueOf(paramId);
+// Classe responsavel pela remoção da empresa
+public class RemoveEmpresa implements Acao {
+	public String executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// Pega o id da empresa.
+		String paramId = request.getParameter("id");
+		Integer id = Integer.valueOf(paramId);
+		System.out.println(id);
 			
-			System.out.println(id);
+		Banco banco = new Banco();
+		banco.removeEmpresa(id);
 			
-			Banco banco = new Banco();
-			banco.removeEmpresa(id);
-			
-			return "redirect:entrada?acao=ListaEmpresas";
+		// Redireciona para a listagem de empresas.
+		return "redirect:entrada?acao=ListaEmpresas";
 	}
 }

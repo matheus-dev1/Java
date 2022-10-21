@@ -1,0 +1,4 @@
+br/com/alura/ecommerce/LogService.class
+br/com/alura/ecommerce/EmailService.class
+br/com/alura/ecommerce/NewOrderMain.class
+br/com/alura/ecommerce/FraudDetectorService.class

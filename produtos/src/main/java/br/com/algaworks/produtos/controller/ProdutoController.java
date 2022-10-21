@@ -27,7 +27,7 @@ public class ProdutoController {
 		 * produto.getNome();
 		 * */
 		
-		Thread.sleep(3000);
+		// Thread.sleep(3000);
 
 		return ResponseEntity.ok(produto);
 	}

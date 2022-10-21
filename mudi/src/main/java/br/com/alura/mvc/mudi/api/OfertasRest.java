@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.alura.mvc.mudi.dto.RequisicaoNovaOferta;
+import br.com.alura.mvc.mudi.dto.RequisicaoNovaOfertaDTO;
 import br.com.alura.mvc.mudi.model.Oferta;
 import br.com.alura.mvc.mudi.model.Pedido;
 import br.com.alura.mvc.mudi.repository.PedidoRepository;
@@ -24,7 +24,7 @@ public class OfertasRest {
 	
 	@PostMapping
 	// Este parametro vai vir do corpo da requisição
-	public Oferta criaOferta(@Valid @RequestBody RequisicaoNovaOferta requisicaoNovaOferta) {
+	public Oferta criaOferta(@Valid @RequestBody RequisicaoNovaOfertaDTO requisicaoNovaOferta) {
 		
 		// O ojbeto pode vir ou não a ser null!
 		Optional<Pedido> pedidoBuscado = pedidoRepository.findById(requisicaoNovaOferta.getPedidoId());

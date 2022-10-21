@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Com esse arquivo nós fazemos algumas configurações referentes ao nosso servidor, à nossa aplicação deploiada la no servidor. -->
+<!DOCTYPE xml>
+<jboss-web>
+	<!-- Definir o contexto da nossa aplicação. -->
+	<context-root>agendamento-email</context-root>
+</jboss-web>

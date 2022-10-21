@@ -13,31 +13,34 @@ import br.com.alura.gerenciador.modelo.Banco;
 import br.com.alura.gerenciador.modelo.Empresa;
 
 public class NovaEmpresa implements Acao {
-	public String executa(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
-				System.out.println("Cadastrando nova empresa");
+	public String executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("Cadastrando nova empresa");
+		
+		// Pega os parametros nome e data do frontend
+		String nomeEmpresa = request.getParameter("nome");
+		String paramDataEmpresa = request.getParameter("data");
 				
-				String nomeEmpresa = request.getParameter("nome");
-				String paramDataEmpresa = request.getParameter("data");
+		Date dataAbertura = null;
+		try {
+			SimpleDateFormat simpleDataFormatDiaMesAno = new SimpleDateFormat("dd/MM/yyyy");
+			dataAbertura = simpleDataFormatDiaMesAno.parse(paramDataEmpresa);
+		} catch (ParseException e) {
+			throw new ServletException(e);
+		}
+		
+		// Criando uma nova empresa
+		Empresa empresa = new Empresa();
+		empresa.setNome(nomeEmpresa);
+		empresa.setDataAbertura(dataAbertura);
+		
+		// Adiciona no nosso "Banco de Dados" ficticio.
+		Banco banco = new Banco();
+		banco.adiciona(empresa);
 				
-				Date dataAbertura = null;
-				try {
-					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-					dataAbertura = sdf.parse(paramDataEmpresa);
-				} catch (ParseException e) {
-					throw new ServletException(e);
-				}
-				
-				Empresa empresa = new Empresa();
-				empresa.setNome(nomeEmpresa);
-				empresa.setDataAbertura(dataAbertura);
-				
-				Banco banco = new Banco();
-				banco.adiciona(empresa);
-				
-				// No nosso arquivo que entrada eu pego o valor setado aqui.
-				request.setAttribute("empresa", empresa.getNome());
-				
-				return "redirect:entrada?acao=ListaEmpresas";
-			}
+		// Setando o nome da empresa no atributo da requisição.
+		request.setAttribute("empresa", empresa.getNome());
+		
+		// Redireciona para a pagina de listagem de empresas.
+		return "redirect:entrada?acao=ListaEmpresas";
+	}
 }

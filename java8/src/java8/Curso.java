@@ -63,7 +63,7 @@ public class Curso {
 		
 		cursos
 			.stream()
-			// FAz um filtro apenas dos cursos com 100 alunos
+			// Faz um filtro apenas dos cursos com 100 alunos
 			.filter(c -> (c.getAlunos() >= 100))
 			// Pega o objeto de cada Curso
 			.map(c -> c.getAlunos())

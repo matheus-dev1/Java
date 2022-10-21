@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_2_4.xsd" id="WebApp_ID" version="2.4">
+  <!-- Documentações sobre web.xml no OneNote na aba Java -->
   <display-name>gerenciador</display-name>
   <welcome-file-list>
-    <welcome-file>bem-vindo.html</welcome-file>
+  <!-- Para isso funcionar estes arquivos devem estar dentro da pasta WebContent -->
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
   
   <servlet>
@@ -16,7 +19,7 @@
   
  	<filter>
     	<filter-name>AF</filter-name>
-    	<filter-class>br.com.alura.gerenciador.servlet.AutorizacaoFilter</filter-class>
+    	<filter-class>br.com.alura.gerenciador.filter.AutorizacaoFilter</filter-class>
 	</filter>
 	<filter-mapping>
     	<filter-name>AF</filter-name>
@@ -25,7 +28,7 @@
 	
 	<filter>
     	<filter-name>MF</filter-name>
-    	<filter-class>br.com.alura.gerenciador.servlet.MonitoramentoFilter</filter-class>
+    	<filter-class>br.com.alura.gerenciador.filter.MonitoramentoFilter</filter-class>
 	</filter>
 	<filter-mapping>
 	    <filter-name>MF</filter-name>
@@ -34,7 +37,7 @@
 	
 	<filter>
     	<filter-name>CF</filter-name>
-    	<filter-class>br.com.alura.gerenciador.servlet.ControladorFilter</filter-class>
+    	<filter-class>br.com.alura.gerenciador.filter.ControladorFilter</filter-class>
 	</filter>
 	<filter-mapping>
 	    <filter-name>CF</filter-name>

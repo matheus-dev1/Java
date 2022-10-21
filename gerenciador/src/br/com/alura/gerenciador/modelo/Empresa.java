@@ -2,8 +2,8 @@ package br.com.alura.gerenciador.modelo;
 
 import java.util.Date;
 
+// Classe representativa dos dados de uma empresa.
 public class Empresa {
-
 	private Integer id;
 	private String nome;
 	private Date dataAbertura = new Date();

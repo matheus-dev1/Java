@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence 
+	version="2.2" 
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+		<persistence-unit name="contas" transaction-type="RESOURCE_LOCAL">
+			<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+			<!-- Todos os modelos da nossa aplicação precisarão ser configurados com essa tag class. -->
+			<class>br.com.alura.jpa.model.Conta</class>
+			<class>br.com.alura.jpa.model.Movimentacao</class>
+				<properties>
+					<!-- Driver do banco de dados que iremos usar -->
+					<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+					<!-- Url do banco de dados -->
+					<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/old_alura_jpa" />
+					<!--  Usuario do banco de dados que vai acessar -->
+					<property name="javax.persistence.jdbc.user" value="root"/>
+					<!-- Senha do banco de dados. -->
+					<property name="javax.persistence.jdbc.password" value="root"/>
+					
+					<!-- Configurações do Hibernate -->
+					<!-- O dialeto permite que o provider consiga enviar as queries corretamente ao banco. -->
+					<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+					<!-- Mostrar os logs das transações do MySQL. -->
+					<property name="hibernate.show_sql" value="true"/>
+					<!--  Formatar o SQL exibido no console. -->
+					<property name="hibernate.format_sql" value="true"/>
+					
+					<!-- Também teremos acesso à criação de querys de Data Definition Language (DDL), ou seja, as de CREATE TABLE, ALTER TABLE e DROP TABLE que criam tabelas baseadas nos modelos de nossos projetos, varrendo os atributos e classes para mapear. -->
+					<!-- Como poderemos escolher usar este recurso ou não, optamos por atualizar o banco se necessário, ou seja, quando não houver tabelas, percorrerá nossos modelos e verá suas características para criar as tables de acordo com estes. -->
+					<property name="hibernate.hbm2ddl.auto" value="update"/>
+				</properties>
+		</persistence-unit>
+</persistence>

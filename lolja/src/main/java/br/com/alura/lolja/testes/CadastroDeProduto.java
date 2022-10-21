@@ -64,8 +64,7 @@ public class CadastroDeProduto {
 		ProdutoDAO produtoDAO = new ProdutoDAO(entityManager);
 		CategoriaDAO categoriaDAO = new CategoriaDAO(entityManager);
 		
-		// Iniciar as tracacoes ao banco de dados, referente ao tipo da transacao que configuramos no 
-		// persistence-unit
+		// Iniciar as tracacoes ao banco de dados, referente ao tipo da transacao que configuramos no persistence-unit
 		entityManager.getTransaction().begin();
 		
 		// Inserir valor no banco de dados, passando o objeto em que voce quer adicionar 

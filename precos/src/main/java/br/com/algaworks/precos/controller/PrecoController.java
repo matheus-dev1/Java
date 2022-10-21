@@ -17,9 +17,11 @@ public class PrecoController {
 	@GetMapping("/{codigoProduto}")
 	public ResponseEntity<Preco> obterPreco(@PathVariable Long codigoProduto) throws Exception {
 		
+		// Instaniando um novo Preço para um produto.
 		Preco preco = new Preco(codigoProduto, new BigDecimal(100));
 		
-		Thread.sleep(3000);
+		// Usado para confimar que a requisição terá este tempo até o retorno da resposta.
+		// Thread.sleep(3000);
 
 		return ResponseEntity.ok(preco);
 	}

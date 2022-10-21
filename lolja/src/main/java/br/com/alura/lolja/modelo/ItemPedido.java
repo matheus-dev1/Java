@@ -23,14 +23,11 @@ public class ItemPedido {
 	private BigDecimal precoUnitario;
 	private Integer quantidade;
 	
-	// Pelo fato de ItemPedido ter virado uma nova entidade, vamos usar o ManyToOne para pedido e produto.
-	// Ou seja, um pedido pode ter varios itens, e cada item tem apenas um produto vinculado.
+	/* Pelo fato de ItemPedido ter virado uma nova entidade, vamos usar o ManyToOne para pedido e produto, ou seja, um pedido pode ter varios itens, e cada item tem apenas um produto vinculado. */
 	
-	// Aqui eu estou mapeando os dois lados do relacionamento, ou seja, de ItemPedido eu to mapeando o pedido
-	// e de pedido eu to mapeando pedido, um mapeando bidirecional, ou seja, eu estou mapeando os dois lados.
+	/* Aqui eu estou mapeando os dois lados do relacionamento, ou seja, de ItemPedido eu to mapeando o pedido e de pedido eu to mapeando pedido, um mapeando bidirecional, ou seja, eu estou mapeando os dois lados. */
 	
-	// Por padrao se eu nao declarar que isso eh um relacionamento bidimencional, o hibernate vai pensar que 
-	// isso aqui eh um novo relacionamento e vai criar um tabela nova com a juncao dos ids de pedido e itensPedido
+	/* Por padrao se eu nao declarar que isso eh um relacionamento bidimencional, o hibernate vai pensar que isso aqui eh um novo relacionamento e vai criar um tabela nova com a juncao dos ids de pedido e itensPedido */
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Pedido pedido;
 	@ManyToOne(fetch = FetchType.LAZY)

@@ -17,7 +17,7 @@ import java.security.DigestInputStream;
 
 public class TesteCopiarArquivo {
 	public static void main(String[] args) throws IOException {
-		// System.in.println(); Eh um metodo que eu posso passar antecipadamente para ele mandar
+		// System.in.println(); È um metodo que eu posso passar antecipadamente para ele mandar
 		// para System.out;
 		// O System.out faz a mesma coisa, com uma diferenca que eu defino o valor de System.in
 		// Na execucao, ele me abre o console para digiar o que eu quiser sem restricao.

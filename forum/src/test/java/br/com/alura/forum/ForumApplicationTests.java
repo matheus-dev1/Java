@@ -2,10 +2,12 @@ package br.com.alura.forum;
 
 import org.junit.Assert;
 import org.junit.Test;
-// import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+// JUnit tem duas API de testes, normalmente usamos o org.junit.Test
+// import org.junit.jupiter.api.Test;
 
 /*
  * Tem a anotação @RunWith, que vem passando como parâmetro esse SpringRunner.class, que é uma classe

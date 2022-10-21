@@ -3,7 +3,6 @@ package br.com.alura.forum.controller;
 import java.net.URI;
 
 import org.junit.Test;
-// import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -16,13 +15,12 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @RunWith(SpringRunner.class)
-// Anotação para testar controller, ele vai carregar apenas as classes da parte MVC
-// @WebMvcTest
+// Anotação para testar controller, ele vai carregar apenas as classes da parte MVC @WebMvcTest
 // Por não usar o @WebMvcTest eu preciso usar a anotação @AutoConfigureMockMvc para poder injetar 
-// a classe MockMvc
+// a classe "private MockMvc mockMvc"
 @AutoConfigureMockMvc
 @SpringBootTest
-// Usar o proprerties de testes.
+// Usar o perfil de testes
 @ActiveProfiles("test")
 public class AutenticacaoControlerTest {
 	/*

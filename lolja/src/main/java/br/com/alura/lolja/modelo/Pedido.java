@@ -35,16 +35,12 @@ public class Pedido {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Cliente cliente;
 	
-	// Sempre que voce tem um relacionamento muitos pra muitos precisa de criar uma nova entidade 
-	// para representar esta tabela.
+	/* Sempre que voce tem um relacionamento muitos pra muitos precisa de criar uma nova entidade 
+	 para representar esta tabela. */
 	
-	// No lado que tem o ToMany, temos que colocar (mappedBy = "pedido") e colocar o nome da atributo que
-	// foi declarado na classe que esta com ManyToOne, ou seja, este eh o lado contrario de relacionamento 
-	// referente a entidade ItemPedido.
+	/* No lado que tem o AlgumaCoisaToMany, temos que colocar (mappedBy = "pedido") e colocar o nome da atributo que foi declarado na classe que esta com AlgumaCoisaToOne, ou seja, este eh o lado contrario de relacionamento referente a entidade ItemPedido. */
 	
-	// Como eu estou fazendo um relacionamento bidirecional, Tanto pedido se relaciona com ItemPedido e vice-versa
-	// entao se eu colocar que eu quero o cascade para persistir, que dizer que quando eu fazer um persist
-	// na tabela atributo, faca uma persistencia na tabela ItemPedido tambem.
+	/* Como eu estou fazendo um relacionamento bidirecional, Tanto pedido se relaciona com ItemPedido e vice-versa entao se eu colocar que eu quero o cascade para persistir, que dizer que quando eu fazer um persist na tabela atributo, faca uma persistencia na tabela ItemPedido tambem. */
 	
 	// A anotacao OneToMany, temos um atributo chamado cascade, que vai persist ItemPedido quando Pedido for
 	// persistido em banco de dados.

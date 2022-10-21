@@ -13,20 +13,17 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.alura.gerenciador.modelo.Banco;
 import br.com.alura.gerenciador.modelo.Empresa;
 
+//Essa classe faz a mesma coisa que "ListaEmpresas.Java", porém ela não estra em nenhum fluxo. DESATIVADA.
 //@WebServlet("/listaEmpresas")
 public class ListaEmpresasServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	protected void service(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
-		
-		Banco banco = new Banco();
-		List<Empresa> lista = banco.getEmpresas();
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<Empresa> lista = Banco.getEmpresas();
 		
 		request.setAttribute("empresas", lista);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/listaEmpresas.jsp");
-		rd.forward(request, response);
-		
+		rd.forward(request, response);	
 	}
 }

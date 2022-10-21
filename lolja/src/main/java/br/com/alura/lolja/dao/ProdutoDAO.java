@@ -118,11 +118,11 @@ public class ProdutoDAO {
 			predicateFiltros = criteriaBuilder.and(predicateFiltros, criteriaBuilder.equal(RootFrom.get("nome"), nome));
 		}
 		if(preco != null) {
-			// Se o preco eh iguala ao preco do paraemtro
+			// Se o preco eh igual a ao preco do paraemtro
 			predicateFiltros = criteriaBuilder.and(predicateFiltros, criteriaBuilder.equal(RootFrom.get("preco"), preco));
 		}
 		if(dataCadastro != null) {
-			// se a data do cadastro eh igual a data do cadastro
+			// Se a data do cadastro eh igual a data do cadastro
 			predicateFiltros = criteriaBuilder.and(predicateFiltros, criteriaBuilder.equal(RootFrom.get("dataCadastro"), dataCadastro));
 		}
 		

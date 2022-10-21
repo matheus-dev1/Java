@@ -1,13 +1,18 @@
 package br.com.dolarhoje.Dolar.Hoje;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
+@RunWith(SpringRunner.class)
 @SpringBootTest
-class DolarHojeApplicationTests {
+public class DolarHojeApplicationTests {
 
 	@Test
-	void contextLoads() {
+	public void contextLoads() {
+		Assert.assertTrue(true);
 	}
 
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html>
+<!-- Colocar um "h" é definir que essa tag faz parte do pacote do xmlns:h="https://java.sun.com/jsf/html" -->
+<html xmlns="https://www.w3.org/1999/xhtml" xmlns:f="https://java.sun.com/jsf/core" xmlns:h="https://java.sun.com/jsf/html">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+		<title>Aprendendo JSF</title>
+	</h:head>
+	<body>
+		<h:form>
+			<!-- h:inputText, h:commandButton e h:outputText são exemplos de tags HTML especificas da JSF -->
+			<h:label>Digite um valor</h:label>
+			<h:inputText value="#{CVer.valor}"></h:inputText>
+			<h:commandButton action="#{CVer.Verificar}"></h:commandButton>
+			<hr></hr>
+			<h:label>Resultado</h:label>
+			<h:outputText value="#{CVer.resultado}"></h:outputText>
+		</h:form>
+	</body>
+</html>

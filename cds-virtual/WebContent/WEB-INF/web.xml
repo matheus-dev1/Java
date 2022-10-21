@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_2_4.xsd" id="WebApp_ID" version="2.4">
+  <display-name>cds-virtual</display-name>
+  
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+  
+  <servlet>
+  	<servlet-name>listaCds</servlet-name>
+  	<servlet-class>br.com.devmedia.cdsvirtual.ListaCdsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>listaCds</servlet-name>
+  	<url-pattern>/listacds</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>confirmaDados</servlet-name>
+  	<servlet-class>br.com.devmedia.cdsvirtual.ConfirmaDadosServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>confirmaDados</servlet-name>
+  	<url-pattern>/confirmaDados</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+  	<servlet-name>dadosCompra</servlet-name>
+  	<servlet-class>br.com.devmedia.cdsvirtual.DadosCompraServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>dadosCompra</servlet-name>
+  	<url-pattern>/dadosCompra</url-pattern>
+  </servlet-mapping>
+</web-app>

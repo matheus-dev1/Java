@@ -13,30 +13,33 @@ import br.com.alura.gerenciador.modelo.Banco;
 import br.com.alura.gerenciador.modelo.Empresa;
 
 public class AlteraEmpresa implements Acao {
-	public String executa(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-				System.out.println("Alterando empresa");
+	public String executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("Alterando empresa");
+		/* Parametros resgatados do frontend */
+		String nomeEmpresa = request.getParameter("nome");
+		String paramDataEmpresa = request.getParameter("data");
+		String paramId = request.getParameter("id");
+		Integer id = Integer.valueOf(paramId);
+		
+		// Inicio data de abertura como nulo para existir fora do escopo do try...catch
+		Date dataAbertura = null;
+		try {
+			// Criando um formato de data padrão com Dia/Mes/Ano
+			SimpleDateFormat simpleDateFormatDiaMesAno = new SimpleDateFormat("dd/MM/yyyy");
+			// Pegando a data do frontend e "lapidando" para o formato acima.
+			dataAbertura = simpleDateFormatDiaMesAno.parse(paramDataEmpresa);
+		} catch (ParseException e) {
+			throw new ServletException(e);
+		}	
+			// Qual o id da empresa.
+			System.out.println(id);
 				
-				String nomeEmpresa = request.getParameter("nome");
-				String paramDataEmpresa = request.getParameter("data");
-				String paramId = request.getParameter("id");
-				Integer id = Integer.valueOf(paramId);
-				
-				Date dataAbertura = null;
-				try {
-					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-					dataAbertura = sdf.parse(paramDataEmpresa);
-				} catch (ParseException e) {
-					throw new ServletException(e);
-				}
-				
-				System.out.println(id);
-				
-				Banco banco = new Banco();
-				Empresa empresa = banco.buscaEmpresaPelaId(id);
-				empresa.setNome(nomeEmpresa);
-				empresa.setDataAbertura(dataAbertura);
-				
-				return "redirect:entrada?acao=ListaEmpresas";
+			Banco banco = new Banco();
+			Empresa empresa = banco.buscaEmpresaPelaId(id);
+			empresa.setNome(nomeEmpresa);
+			empresa.setDataAbertura(dataAbertura);
+			
+			// Redireciona para a JSP de listagem de empresas.
+			return "redirect:entrada?acao=ListaEmpresas";
 		}
 }

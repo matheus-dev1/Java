@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+// Classe representativa do banco
 public class Banco {
-	
 	private static List<Empresa> lista = new ArrayList<>();
 	private static List<Usuario> listaUsuario = new ArrayList<>();
 	private static Integer chaveSequencial = 1;
@@ -35,15 +35,13 @@ public class Banco {
 		Banco.lista.add(empresa);
 	}
 	
-	public List<Empresa> getEmpresas(){
+	public static List<Empresa> getEmpresas(){
 		return Banco.lista;
 	}
 	
 
 	public void removeEmpresa(Integer id) {
-		
 		Iterator<Empresa> it = lista.iterator();
-		
 		while(it.hasNext()) {
 			Empresa emp = it.next();
 			
@@ -53,7 +51,7 @@ public class Banco {
 		}
 	}
 
-	public Empresa buscaEmpresaPelaId(Integer id) {
+	public static Empresa buscaEmpresaPelaId(Integer id) {
 		for (Empresa empresa : lista) {
 			if(empresa.getId() == id) {
 				return empresa;
@@ -70,5 +68,4 @@ public class Banco {
 		}
 		return null;
 	}
-
 }

@@ -3,8 +3,6 @@ package br.com.algaworks.produtos.model;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 /* 
  * Boilerplate - Codigo que se repete varias vezes no projeto

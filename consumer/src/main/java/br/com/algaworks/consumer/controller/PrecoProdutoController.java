@@ -17,6 +17,14 @@ public class PrecoProdutoController {
 	@Autowired
 	private PrecoProdutoService precoProdutoService;
 	
+	@GetMapping("/produto/{codigo}/preco/async")
+	public ResponseEntity<ProdutoComPreco> obterProdutoComPrecoParalelo(@PathVariable Long codigo) {
+		
+		ProdutoComPreco produtoComPreco = this.precoProdutoService.obterPorCodigoParalelo(codigo);
+
+		return ResponseEntity.ok(produtoComPreco);
+	}
+	
 	@GetMapping("/produto/{codigo}/preco")
 	public ResponseEntity<ProdutoComPreco> obterProdutoComPreco(@PathVariable Long codigo) {
 		
@@ -25,15 +33,8 @@ public class PrecoProdutoController {
 		return ResponseEntity.ok(produtoComPreco);
 	}
 
-	@GetMapping("/produto/{codigo}/preco/async")
-	public ResponseEntity<ProdutoComPreco> obterProdutoComPrecoParalelo(@PathVariable Long codigo) {
-		
-		ProdutoComPreco produtoComPreco = this.precoProdutoService.obterPorCodigoParalelo(codigo);
-
-		return ResponseEntity.ok(produtoComPreco);
-	}
-
 	@PostMapping("/produto")
+	// Para no corpo da requisição.
 	public ResponseEntity<ProdutoComPreco> criarProduto(@RequestBody ProdutoComPreco produto) {
 
 		ProdutoComPreco produtoComPreco = this.precoProdutoService.criar(produto);

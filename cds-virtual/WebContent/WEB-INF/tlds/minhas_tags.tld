@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Arquivo de metadata das tablibs, ou seja, é como se fosse uma documentação das nossas tab libs -->
+<taglib 
+	version="2.0" 
+	xmlns="http://java.sun.com/xml/ns/j2ee [3]" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_0.xsd"
+>
+	<!-- Versão da minha tab lib -->
+	<tlib-version>1.0</tlib-version>
+	<!-- Nome, isso não é usado em nenhum lugar -->
+	<short-name>Minhas tags</short-name>
+	<!--  URI, na hora de importar na JSP, este é  nome que devemos colocar -->
+	<uri>minhasTags</uri>
+	
+	<!-- Aqui é a tag propriamente dita, ou seja, se eu coloco o prefixo t, minha tag ficaria <t:consoleLog/> -->
+	<tag>
+		<!-- Nome da tag -->
+		<name>consoleLog</name>
+		<!-- Qual classe java que implementa essa tag lib -->
+		<tag-class>br.com.devmedia.cdsvirtual.PrimeiraTag</tag-class>
+		<!-- No body-content nos devemos dizer o que tem dentro das "<></>" tags -->
+		<body-content>empty</body-content>
+		<!-- Aqui eu estou criando dois atributos, um obrigatório e o outro opcional -->
+		<attribute>
+   			<name>hello</name>
+   			<required>true</required>
+  		</attribute>
+		<attribute>
+   			<name>teste</name>
+   			<required>false</required>
+  		</attribute>
+   	</tag>
+   	
+   	<tag>
+		<name>consoleBody</name>
+		<tag-class>br.com.devmedia.cdsvirtual.ConsoleBody</tag-class>
+		<body-content>scriptless</body-content>
+   	</tag>
+   	 
+</taglib>

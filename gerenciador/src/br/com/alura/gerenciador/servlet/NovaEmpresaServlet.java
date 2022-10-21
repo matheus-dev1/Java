@@ -14,16 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.alura.gerenciador.modelo.Banco;
 import br.com.alura.gerenciador.modelo.Empresa;
 
-/**
- * Servlet implementation class NovaEmpresaServlet
- */
+//Essa classe faz a mesma coisa que "NovaEmpresa.Java", porém ela não estra em nenhum fluxo. DESATIVADA.
 //@WebServlet("/novaEmpresa")
 public class NovaEmpresaServlet extends HttpServlet {
-	
-	private static final long serialVersionUID = 1L;
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
+	private static final long serialVersionUID = 8733098435271193259L;
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Cadastrando nova empresa");
 		
 		String nomeEmpresa = request.getParameter("nome");
@@ -45,13 +40,11 @@ public class NovaEmpresaServlet extends HttpServlet {
 		banco.adiciona(empresa);
 		
 		request.setAttribute("empresa", empresa.getNome());
-		
 		response.sendRedirect("entrada?acao=listaEmpresas");
 		
-//		//chamar o JSP ou Servlet
-//		RequestDispatcher rd = request.getRequestDispatcher("/listaEmpresas");
-//		request.setAttribute("empresa", empresa.getNome());
-//		rd.forward(request, response);
+		/* RequestDispatcher rd = request.getRequestDispatcher("/listaEmpresas");
+		request.setAttribute("empresa", empresa.getNome());
+		rd.forward(request, response); */
 	}
 
 }

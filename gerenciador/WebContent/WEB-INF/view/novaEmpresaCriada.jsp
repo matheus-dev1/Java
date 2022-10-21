@@ -2,14 +2,12 @@
 
 <html>
 	<body>
-	
+	<% /* Se a empresa não está vazia, ou seja, ela existe exibe que ela foi criada com sucesso.*/ %>
 		<c:if test="${not empty empresa}">
-			Empresa ${ empresa } cadastrada com sucesso!
+			<p>Empresa ${ empresa } cadastrada com sucesso!</p>
 		</c:if>
-		
 		<c:if test="${empty empresa}">
-			Nenhuma empresa cadastrada!
+			<p>Nenhuma empresa cadastrada!</p>
 		</c:if>
-
 	</body>
 </html>

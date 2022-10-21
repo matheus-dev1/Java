@@ -21,7 +21,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})	
 @Entity
 public class Pedido {
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nomeDoProduto;
 	private BigDecimal valorNegociado;
