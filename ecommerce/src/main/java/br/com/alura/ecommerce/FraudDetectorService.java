@@ -28,7 +28,7 @@ public class FraudDetectorService {
                 System.out.println("Records " + consumerRecords.count() + " founded!");
                 consumerRecords.forEach(record -> {
                     System.out.println("-----------------------------------------------");
-                    System.out.println("Processing a new order and checking fraud...");
+                    System.out.println("Processing a new order and checking fraud....");
                     System.out.println("Key: " + record.key());
                     System.out.println("Value: " + record.value());
                     System.out.println("Topic: " + record.topic());
