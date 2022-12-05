@@ -69,6 +69,9 @@
 			<item value="org.eclipse.jdt.ui.java"/>
 			<item value="org.eclipse.jpt.jaxb"/>
 			<item value="org.jboss.ide.eclipse.ui.wizards"/>
+			<item value="org.jboss.tools.jst.web"/>
+			<item value="org.fusesource.ide.newwizards"/>
+			<item value="org.eclipse.jst.ws.ui.new"/>
 		</list>
 	</section>
 	<section name="FileSystemImportWizard">

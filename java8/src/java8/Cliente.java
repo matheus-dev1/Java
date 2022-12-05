@@ -10,6 +10,21 @@ public class Cliente {
 		this.cpf = cpf;
 	}
 	
+	public String getNome() {
+		System.out.println(this.nome);
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public String getCpf() {
+		System.out.println(this.cpf);
+		return cpf;
+	}
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
 	@Override
 	public String toString() {
 		return "CPF: " + this.cpf + " | " + "Nome: " + this.nome;
