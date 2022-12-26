@@ -1,22 +1,17 @@
 package br.com.alura.ecommerce;
 
-import org.apache.kafka.clients.producer.Callback;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.common.serialization.StringSerializer;
+import br.com.alura.ecommerce.service.KafkaDispatcher;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Properties;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
+// Serviço para efetuar um novo pedido manualmente.
 public class NewOrderMain {
-    public static final String LOJA_NOVO_PEDIDO = "LOJA_NOVO_PEDIDO";
+    // public static final String LOJA_NOVO_PEDIDO = "LOJA_NOVO_PEDIDO";
     public static final String ECOMMERCE_NEW_ORDER = "ECOMMERCE_NEW_ORDER";
-    public static final String ECOMMERCE_NEW_EMAIL = "ECOMMERCE_NEW_EMAIL";
+    // public static final String ECOMMERCE_NEW_EMAIL = "ECOMMERCE_NEW_EMAIL";
 
     public static void main(String[] args) throws ExecutionException, InterruptedException, IOException {
         // Para produzir mensagens ao Kafka, nos usamos a classe KafkaProducer que recebe dois generics, o primeiro o tipo da chave e o segundo o tipo da mensagem
@@ -25,7 +20,7 @@ public class NewOrderMain {
 
         // Classe generica que eu criei para dividir as responsabilidades de produzir mensagens
         try(KafkaDispatcher<Order> orderKafkaDispatcher = new KafkaDispatcher<Order>(NewOrderMain.class.getSimpleName() + "Order")) {
-            try (KafkaDispatcher<Email> emailKafkaDispatcher = new KafkaDispatcher<Email>(NewOrderMain.class.getSimpleName() + "Email")) {
+            //try (KafkaDispatcher<Email> emailKafkaDispatcher = new KafkaDispatcher<Email>(NewOrderMain.class.getSimpleName() + "Email")) {
                 // Testar pedidos de compra para um usuario especifico.
                 String userEmail = UUID.randomUUID().toString() + "@email.com";
                 for (int i = 0; i < 10; i++) {
@@ -48,13 +43,13 @@ public class NewOrderMain {
                     // Order order = new Order(userId, orderId, amount, userEmail);
                     Order order = new Order(orderId, amount, userEmail);
 
-                    String subject = "title-" + UUID.randomUUID().toString();
+                    /*String subject = "title-" + UUID.randomUUID().toString();
                     String body = UUID.randomUUID().toString() + "@email.com";
-                    Email email = new Email(subject, body);
+                    Email email = new Email(subject, body);*/
 
                     // Agora o nosso userEmail vai ser o nosso key.
                     orderKafkaDispatcher.send(ECOMMERCE_NEW_ORDER, userEmail, order, new CorrelationId(NewOrderMain.class.getSimpleName() + "Order"));
-                    emailKafkaDispatcher.send(ECOMMERCE_NEW_EMAIL, userEmail, email, new CorrelationId(NewOrderMain.class.getSimpleName() + "Email"));
+                    // emailKafkaDispatcher.send(ECOMMERCE_NEW_EMAIL, userEmail, email, new CorrelationId(NewOrderMain.class.getSimpleName() + "Email"));
 
             /*
             // Você pode chamar um callback dessa forma.
@@ -82,7 +77,7 @@ public class NewOrderMain {
             futureSendEmail.get();
             */
                 }
-            }
+            //}
         }
     }
 

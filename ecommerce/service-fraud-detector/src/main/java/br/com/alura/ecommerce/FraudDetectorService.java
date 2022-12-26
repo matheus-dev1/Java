@@ -1,19 +1,28 @@
 package br.com.alura.ecommerce;
 
+import br.com.alura.ecommerce.database.LocalDataBase;
+import br.com.alura.ecommerce.service.ConsumerService;
+import br.com.alura.ecommerce.service.KafkaDispatcher;
+import br.com.alura.ecommerce.service.KafkaService;
+import br.com.alura.ecommerce.service.ServiceRunner;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 // Produtor e consumidor
-public class FraudDetectorService {
+// Serviço responsavel por escutar um novo pedido de compra e valiar se é uma fraude ou não.
+public class FraudDetectorService implements ConsumerService<Order> {
     public static final String ECOMMERCE_NEW_ORDER = "ECOMMERCE_NEW_ORDER";
     public static final String ECOMMERCE_ORDER_REJECTED = "ECOMMERCE_ORDER_REJECTED";
     public static final String ECOMMERCE_ORDER_SUCCESS = "ECOMMERCE_ORDER_SUCCESS";
+    public final LocalDataBase localDataBase;
     private KafkaDispatcher<Order> orderKafkaDispatcher = new KafkaDispatcher<Order>(FraudDetectorService.class.getSimpleName());
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) throws ExecutionException, InterruptedException {
         FraudDetectorService fraudDetectorService = new FraudDetectorService();
         try(KafkaService<Order> kafkaService = new KafkaService<Order>(
                 ECOMMERCE_NEW_ORDER,
@@ -23,9 +32,36 @@ public class FraudDetectorService {
                 Map.of())) {
             kafkaService.run();
         }
+    }*/
+
+    public static void main(String[] args) {
+        new ServiceRunner(FraudDetectorService::new, Order.class).start(1);
     }
 
-    private void parse(ConsumerRecord<String, Message<Order>> record) throws ExecutionException, InterruptedException {
+    public FraudDetectorService() throws SQLException {
+        this.localDataBase = new LocalDataBase("frauds_database");
+        this.localDataBase.createIfNotExists("create table Orders (" +
+                "uuid varchar(200) primary key," +
+                "is_fraud boolean)");
+    }
+
+    @Override
+    public String getTopic() {
+        return ECOMMERCE_NEW_ORDER;
+    }
+
+    @Override
+    public String getConsumerGroup() {
+        return FraudDetectorService.class.getSimpleName();
+    }
+
+    @Override
+    public Class<Order> getType() {
+        return Order.class ;
+    }
+
+    @Override
+    public void parse(ConsumerRecord<String, Message<Order>> record) throws ExecutionException, InterruptedException, SQLException {
         System.out.println("--------------FRAUD DETECTOR SERVICE------------------");
         System.out.println("Processing a new order and checking fraud....");
         System.out.println("Key: " + record.key());
@@ -35,19 +71,25 @@ public class FraudDetectorService {
         System.out.println("Partition: " + record.partition());
         System.out.println("Offset: " + record.offset());
 
+        // Retornar o valor de um record
+        Order order = record.value().getPayload();
+
+        if(wasProcessed(order)) {
+            System.out.println("Order " + order.getOrderId() + " already was processed!");
+            return;
+        }
+
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        // Retornar o valor de um record
-        Order order = record.value().getPayload();
-
         if(isFraud(order)) {
             System.out.println("*********************");
             System.out.println("Order is a fraud!!!");
             System.out.println(order.toString());
+            this.localDataBase.update("insert into Orders (uuid, is_fraud) values (? , true)", order.getOrderId());
             orderKafkaDispatcher.send(
                     ECOMMERCE_ORDER_REJECTED,
                     order.getUserEmail(),
@@ -59,6 +101,7 @@ public class FraudDetectorService {
             System.out.println("Order Amount " + order.getAmount());
             // System.out.println("Order UserId: " + order.getUserId());
             System.out.println("Order OrderId: " + order.getOrderId());
+            this.localDataBase.update("insert into Orders (uuid, is_fraud) values (? , false)", order.getOrderId());
             orderKafkaDispatcher.send(
                     ECOMMERCE_ORDER_SUCCESS,
                     order.getUserEmail(),
@@ -67,6 +110,11 @@ public class FraudDetectorService {
         }
 
         System.out.println("Order Processed!");
+    }
+
+    private boolean wasProcessed(Order order) throws SQLException {
+        ResultSet result = this.localDataBase.query("select uuid from Orders where uuid = ? limit 1", order.getOrderId());
+        return result.next();
     }
 
     private static Boolean isFraud(Order order) {

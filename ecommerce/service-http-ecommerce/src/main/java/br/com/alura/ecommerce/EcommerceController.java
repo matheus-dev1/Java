@@ -1,43 +1,59 @@
 package br.com.alura.ecommerce;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.alura.ecommerce.service.KafkaDispatcher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
+// Controler responsavel pelas geração de nova order e geração de relatorio
 @Controller
 public class EcommerceController {
     public static final String ECOMMERCE_NEW_ORDER = "ECOMMERCE_NEW_ORDER";
-    public static final String ECOMMERCE_NEW_EMAIL = "ECOMMERCE_NEW_EMAIL";
+    //public static final String ECOMMERCE_NEW_EMAIL = "ECOMMERCE_NEW_EMAIL";
     private static final String ECOMMERCE_USER_GENERATE_READING_REPORT = "ECOMMERCE_USER_GENERATE_READING_REPORT";
 
     private final KafkaDispatcher<Order> orderKafkaDispatcher = new KafkaDispatcher<>(EcommerceController.class.getSimpleName() + "Order");
-    private final KafkaDispatcher<Email> emailKafkaDispatcher = new KafkaDispatcher<>(EcommerceController.class.getSimpleName() + "Email");
+    //private final KafkaDispatcher<Email> emailKafkaDispatcher = new KafkaDispatcher<>(EcommerceController.class.getSimpleName() + "Email");
     private final KafkaDispatcher<String> batchKafkaDispatcher = new KafkaDispatcher<>(EcommerceController.class.getSimpleName() + "BatchGenerateReports");
 
-    // http://localhost:8080/new-order?email=kojodosbr@yahoo.com&amount=5000
+    // http://localhost:8080/new-order?email=kojodosbr1@yahoo.com&amount=4000&uuid=a8sd7asd8asd7sad98ad9sad89sa7asf86
     @GetMapping("new-order")
-    public ResponseEntity<String> newOrder(@RequestParam("email") String email_value, @RequestParam("amount") String amount_value) throws ExecutionException, InterruptedException {
-        String orderId = UUID.randomUUID().toString();
+    public ResponseEntity<String> newOrder(
+            @RequestParam("email") String email_value,
+            @RequestParam("amount") String amount_value,
+            @RequestParam("uuid") String uuid
+    ) throws ExecutionException, InterruptedException, SQLException, IOException {
+        //String orderId = UUID.randomUUID().toString();
+        String orderId = uuid;
         String userEmail = email_value;
         BigDecimal amount = new BigDecimal(amount_value);
         Order order = new Order(orderId, amount, userEmail);
 
-        String subject = "Title: " + UUID.randomUUID().toString();
+        /*String subject = "Title: " + UUID.randomUUID().toString();
         String body = "Random Text: " + UUID.randomUUID().toString();
-        Email email = new Email(subject, body);
+        Email email = new Email(subject, body);*/
 
-        orderKafkaDispatcher.send(ECOMMERCE_NEW_ORDER, userEmail, order, new CorrelationId(EcommerceController.class.getSimpleName() + "Order"));
-        emailKafkaDispatcher.send(ECOMMERCE_NEW_EMAIL, userEmail, email, new CorrelationId(EcommerceController.class.getSimpleName() + "Email"));
+        try(OrdersDatabase ordersDatabase = new OrdersDatabase()) {
+            if (ordersDatabase.saveNewOrder(order)) {
+                orderKafkaDispatcher.send(ECOMMERCE_NEW_ORDER, userEmail, order, new CorrelationId(EcommerceController.class.getSimpleName() + "Order"));
+                //emailKafkaDispatcher.send(ECOMMERCE_NEW_EMAIL, userEmail, email, new CorrelationId(EcommerceController.class.getSimpleName() + "Email"));
 
-        System.out.println("New order send successfully.");
-
-        return ResponseEntity.ok("[ " + ECOMMERCE_NEW_ORDER + " OK ]" + "  ---   [ " + ECOMMERCE_NEW_EMAIL + " OK ]");
+                System.out.println("New order send successfully.");
+                //return ResponseEntity.ok("[ " + ECOMMERCE_NEW_ORDER + " OK ]" + "  ---   [ " + ECOMMERCE_NEW_EMAIL + " OK ]");
+                System.out.println("UUID [" + orderId + " and " + userEmail + "] added!");
+                return ResponseEntity.ok("[ " + ECOMMERCE_NEW_ORDER + " OK ]");
+            } else {
+                System.out.println("Old order received.");
+                return ResponseEntity.ok("[ " + ECOMMERCE_NEW_ORDER + " NOT OK ]");
+            }
+        }
     }
 
     // http://localhost:8080/admin/generate-reports

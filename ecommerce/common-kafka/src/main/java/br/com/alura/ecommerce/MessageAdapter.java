@@ -4,6 +4,8 @@ import com.google.gson.*;
 
 import java.lang.reflect.Type;
 
+// Classe responsavel por implementar como sera feito a searialização e desereialização de objetos do tipo Message
+// que é o pai de qualquer objeto deste projeto que tem relação com a regra de negocio.
 public class MessageAdapter implements JsonSerializer<Message>, JsonDeserializer<Message> {
     // Aqui eu estou adaptando como o meu JSON referente a classe Message
     @Override
@@ -14,7 +16,7 @@ public class MessageAdapter implements JsonSerializer<Message>, JsonDeserializer
         jsonObject.add("correlationId", jsonSerializationContext.serialize(message.getCorrelationId()));
         return jsonObject;
     }
-
+    // Aqui estou pegando o um objeto do tipo message para ser deserializado.
     @Override
     public Message deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
         // Instanciando um JSon como objeto
@@ -26,7 +28,7 @@ public class MessageAdapter implements JsonSerializer<Message>, JsonDeserializer
         CorrelationId correlationIdObject = (CorrelationId) jsonDeserializationContext.deserialize(jsonObject.get("correlationId"), CorrelationId.class);
         try {
             // Definindo o payload baseado no FQN.
-            Object payload = jsonDeserializationContext.deserialize(jsonObject.get("payload"), Class.forName("br.com.alura.ecommerce." + payloadType));
+            Object payload = jsonDeserializationContext.deserialize(jsonObject.get("payload"), Class.forName(payloadType));
             // E retorna uma nova instancia de Message.
             return new Message(correlationIdObject, payload);
         } catch (ClassNotFoundException e) {

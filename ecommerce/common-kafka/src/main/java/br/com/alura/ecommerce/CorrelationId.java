@@ -1,7 +1,7 @@
 package br.com.alura.ecommerce;
 
 import java.util.UUID;
-
+// Objeto que representa o CorrelationId da aplicação, que é o track de execução do metodo send().
 public class CorrelationId {
 
     private String correlationId;
@@ -30,6 +30,7 @@ public class CorrelationId {
     public String toString() {
         return "CorrelationId{" +
                 "correlationId='" + correlationId + '\'' +
+                ", title='" + title + '\'' +
                 '}';
     }
 }

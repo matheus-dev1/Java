@@ -1,14 +1,16 @@
 package br.com.alura.ecommerce;
 
+import br.com.alura.ecommerce.service.KafkaService;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
-import java.time.Duration;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
 
+// Serviço de logs, responsavel por logar todos os serviços que usam Kafka
 public class LogService {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
         LogService logService = new LogService();
         try(KafkaService<String> kafkaService = new KafkaService<String>(
                 // Se você gerar novos topicos enquanto esta rodando o logService ele não vai pegar estes novos topicos
@@ -17,6 +19,7 @@ public class LogService {
                 logService::parse,
                 LogService.class.getSimpleName(),
                 String.class,
+                // Colocando configurações adicionais apenas para este serviços no properties da instancia desse KafkaService.
                 Map.of(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName()))
         ) {
             kafkaService.run();

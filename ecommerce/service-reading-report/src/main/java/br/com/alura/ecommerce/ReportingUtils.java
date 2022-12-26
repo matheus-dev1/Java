@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.UUID;
 
+// Classe responsave por gerar um novo relatorio em um HTML
 public class ReportingUtils {
     public void generateReporting(String origem, String destino, String t1, String t2) throws IOException {
         // Aqui eu vou abrir um arquivo HTML
