@@ -1,5 +1,4 @@
 public class FluxoComMeuTratamentoApenasExpection {
-
 	public static void main(String[] args) {
 		System.out.println("Inicio do main...");
 		try {
@@ -20,16 +19,15 @@ public class FluxoComMeuTratamentoApenasExpection {
 		System.out.println("Fim do metodo1");
 	}
 	
-	// Quando a nossa exception herda apenas de Exception, ele soccilita uma verificacao, na assinatura do
-	// metodo voce deve colocar a palavra chave throws, depois do nome do metodo mais o nome da excecao.
-	// Obs: Voce pode definir mais de uma excecao na assinatura de throws. 
-	// Exemplo: throws MinhaExcecaoApenasException, MinhaExcecao
+	/* Quando a nossa exceção herda apenas de Exception, ele solicita que a exceção seja tratada, na assinatura do
+	   metodo voce deve colocar a palavra chave throws, depois do nome do metodo mais o nome da exceção ou um try/catch.
+	   Obs: Voce pode definir mais de uma excecao na assinatura de throws. 
+	   Exemplo: throws MinhaExcecaoApenasException, MinhaExcecao */
 	public static void metodo2() throws MinhaExcecaoApenasException {
 		System.out.println("Inicio do metodo2");
 		// Throwable possui duas vertentes, uma para erros relacionado a maquina virtual, e que normalmente
-		// apenas interresam para os desenvolvedores internos e outro para excecoes, que nos sim nos 
-		// interresa.
-		// Hierarquia: stackoverflowError -> VirtualMachineError -> Error - Throwable
-		throw new MinhaExcecaoApenasException("Essa eh minha excecao!");
+		// apenas interresam para os desenvolvedores internos e outro para exceções, que sim nos interresa.
+		// Hierarquia: StackOverFlowError -> VirtualMachineError -> Error - Throwable
+		throw new MinhaExcecaoApenasException("Essa é a minha excecao!");
 	}
 }

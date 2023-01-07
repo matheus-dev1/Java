@@ -1,15 +1,14 @@
-// Na categoria que herdam de Exception, basicamente eles solicitam que todo metodo que usamos o um throw
-// nos temos que colocar na assinatura do metodo qual eh o throw e se este metodo for invocado por outro
-// o que invocou tambem deve ter a assinatura do throw ou vove pode fazer um try no metodo que invocou o 
-// outro metodo.
-
-// Exemplo: public static void metodo () throws MinhaExcecaoApenasException
-
-// Obs: Na hora de rodar/executar nao tem diferenca!
+/* Checked
+   As classes que herdam de "Exception", é do tipo "Checked", então elas solicitam que a exceção seja tratada de alguma 
+   forma, colocando o throws na assinatura do metodo ou usando um try/catch */
 public class MinhaExcecaoApenasException extends Exception {
+	private static final long serialVersionUID = 310024485027041169L;
+
 	public MinhaExcecaoApenasException(String mensagem){
-		// super(), vai invocar o construor da classe herdada, neste caso eu vou herdar de varias classes
-		// ate chegar na throwable que armazena este valor, e nos disponibilizar para usar em outro metodo.
+		/* O super é um metodo reservador que representa o contrutor da classe herdada, neste caso, como eu vou herdar de
+		 RuntimeException que herda de uma serie de classes até chegar na Throwable em que realmente armazena este 
+		 valor, e nos disponibiliza para usar na super(). */
 		super(mensagem);
+		System.out.println("Algo a mais em MinhaExcecaoApenasException");
 	}
 }

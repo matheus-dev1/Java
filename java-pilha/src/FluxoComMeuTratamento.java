@@ -1,11 +1,9 @@
 public class FluxoComMeuTratamento {
-
 	public static void main(String[] args) {
 		System.out.println("Inicio do main...");
 		try {
 			FluxoComMeuTratamento.metodo1();
-			// Catch Polimorfico | Ao passar a classe Exception ele pode capturar toda e qualquer 
-			// excecao que pode acontecer.
+			// Catch Polimorfico | Ao passar a classe Exception ele pode capturar toda e qualquer exceção que pode acontecer.
 		} catch(Exception excecao) {
 			System.out.println("Classe: " + excecao.getClass());
 			System.out.println("Mensagem da Excexao: " + excecao.getMessage());
@@ -24,7 +22,6 @@ public class FluxoComMeuTratamento {
 	
 	public static void metodo2() {
 		System.out.println("Inicio do metodo2");
-		
-		throw new MinhaExcecao("Essa eh minha excecao!");
+		throw new MinhaExcecao("Essa é a minha excecao!");
 	}
 }

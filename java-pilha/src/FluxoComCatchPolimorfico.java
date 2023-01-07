@@ -1,5 +1,4 @@
 public class FluxoComCatchPolimorfico {
-
 	public static void main(String[] args) {
 		System.out.println("Inicio do main...");
 		try {
@@ -14,6 +13,7 @@ public class FluxoComCatchPolimorfico {
 		System.out.println("Fim do main...");
 	}
 	
+	// metodo1 chamda o metodo2
 	public static void metodo1() {
 		System.out.println("Inicio do metodo1");
 		FluxoComCatchPolimorfico.metodo2();
@@ -22,8 +22,8 @@ public class FluxoComCatchPolimorfico {
 	
 	public static void metodo2() {
 		System.out.println("Inicio do metodo2");
-		
-		// HEAP, onde os objetos sao criados/armazenados (Memoria de Objetos)
-		throw new MinhaExcecao("Essa eh minha excecao!");
+		// HEAP, onde os objetos do Java são criados/armazenados (Memoria de Objetos)
+		// Não somo obrigados a implementar um throws ou try/catch porque a exceção MinhaExcecao é do tipo unchecked
+		throw new MinhaExcecao("Essa é minha exceção!");
 	}
 }

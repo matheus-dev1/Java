@@ -1,9 +1,14 @@
-// Nas excecoes que herdam de RuntimeException sao chamadas de unchecked, ou seja, elas nao solcitam
-// que no metodo em que tem um throws voce especifique na assinatura do metodo este throws.
+/* Unchecked
+   Nas classes(exceções) que herdam de RuntimeException, elas são chamadas de "Unchecked", isso porque elas não obrigam que os metodos e
+   classes que tentem usar algum metodo ou classe de pode dar essa exceção tenha que tratar 
+   esse erro, seja pela assinatura do metodo ou classe ou por um try catch */
 public class MinhaExcecao extends RuntimeException {
+	private static final long serialVersionUID = 2042432446655093912L;
+
 	public MinhaExcecao(String mensagem){
-		// super(), vai invocar o construor da classe herdada, neste caso eu vou herdar de varias classes
-		// ate chegar na throwable que armazena este valor, e nos disponibilizar para usar em outro metodo.
+		/* O super é um metodo reservador que representa o contrutor da classe herdada, neste caso, como eu vou herdar de
+		 RuntimeException que herda de uma serie de classes até chegar na Throwable em que realmente armazena este 
+		 valor, e nos disponibiliza para usar na super(). */
 		super(mensagem);
 	}
 }
