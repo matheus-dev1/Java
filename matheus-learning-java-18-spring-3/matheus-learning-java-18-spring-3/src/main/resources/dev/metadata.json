@@ -1,0 +1,36 @@
+{
+  "segmentos": [
+    {
+      "atacado": {
+        "routes": {
+          "rota1": {
+            "url": "exemplourl.com",
+            "type": "web-component",
+            "version": "1.0.1"
+          },
+          "rota2": {
+            "url": "exemplourl2.com",
+            "type": "microfrontend",
+            "version": "5.0.1"
+          }
+        }
+      }
+    },
+    {
+      "varejo": {
+        "routes": {
+          "rota1": {
+            "url": "exemplourl.com",
+            "type": "web-component",
+            "version": "1.0.1"
+          },
+          "rota2": {
+            "url": "exemplourl2.com",
+            "type": "microfrontend",
+            "version": "5.0.1"
+          }
+        }
+      }
+    }
+  ]
+}

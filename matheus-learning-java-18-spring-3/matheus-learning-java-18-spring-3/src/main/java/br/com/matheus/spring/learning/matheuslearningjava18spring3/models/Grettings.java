@@ -1,4 +1,4 @@
-package br.com.matheus.spring.learning.matheuslearningjava18spring3;
+package br.com.matheus.spring.learning.matheuslearningjava18spring3.models;
 
 public class Grettings {
 

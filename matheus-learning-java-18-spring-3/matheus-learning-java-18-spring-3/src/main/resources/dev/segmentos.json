@@ -1,0 +1,12 @@
+{
+  "segmentos": [
+    {
+      "segmento": "ibba",
+      "grupo": "atacado"
+    },
+    {
+      "segmento": "emp4",
+      "grupo": "varejo"
+    }
+  ]
+}
