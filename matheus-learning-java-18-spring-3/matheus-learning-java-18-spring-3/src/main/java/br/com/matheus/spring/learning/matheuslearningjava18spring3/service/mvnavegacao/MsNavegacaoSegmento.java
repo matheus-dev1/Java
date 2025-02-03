@@ -19,7 +19,6 @@ public class MsNavegacaoSegmento {
         this.objectMapper = objectMapper;
     }
 
-    //no ms terei um metodo pra retornar o segmento em vez de passar como param
     public String getGrupoSegmento(String segmento) throws IOException {
         String enviromentPath = "";
         String segmentoGrupo = "";

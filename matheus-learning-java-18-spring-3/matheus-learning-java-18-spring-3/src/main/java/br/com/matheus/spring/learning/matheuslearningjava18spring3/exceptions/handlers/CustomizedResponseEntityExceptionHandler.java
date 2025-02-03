@@ -1,6 +1,7 @@
 package br.com.matheus.spring.learning.matheuslearningjava18spring3.exceptions.handlers;
 
 import br.com.matheus.spring.learning.matheuslearningjava18spring3.exceptions.ExceptionResponse;
+import br.com.matheus.spring.learning.matheuslearningjava18spring3.exceptions.RequiredObjectIsNullException;
 import br.com.matheus.spring.learning.matheuslearningjava18spring3.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,14 +37,15 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
                 exception.getMessage(),
                 webRequest.getDescription(false)
         );
+
         return new ResponseEntity<Exception>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    // A desvantagem dessa implementacao eh que se em outro lugar do meu codigo retornar um status code BAD Request
+    // A desvantagem dessa implementacao eh que se em outro lugar do meu codigo estourar um status code BAD Request
     // Ele vai cair nesta mesma exception, mesmo que nao tenha nada a ver com o problema
     // Ou seja esse cara eh muito recomendado para pequenas aplicacoes ou temas unicos que possam utilizar 100% destas implementacoes
     @ExceptionHandler(ResourceNotFoundException.class)
-    private ResponseEntity<Exception> handleNotFoundExceptions (
+    private ResponseEntity<Exception> handleResourceNotFoundException (
             Exception exception,
             WebRequest webRequest
     ) {
@@ -54,6 +56,20 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
         );
 
         return new ResponseEntity<Exception>(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(RequiredObjectIsNullException.class)
+    private ResponseEntity<Exception> handleRequiredObjectIsNullException (
+            Exception exception,
+            WebRequest webRequest
+    ) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(
+                new Date(),
+                exception.getMessage() + " " + "BAD REQUEST",
+                webRequest.getDescription(false) + " - " + "Session ID: " + webRequest.getSessionId()
+        );
+
+        return new ResponseEntity<Exception>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
 }

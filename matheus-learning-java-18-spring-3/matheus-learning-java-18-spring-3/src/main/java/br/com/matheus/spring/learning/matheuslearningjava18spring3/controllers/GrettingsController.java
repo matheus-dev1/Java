@@ -45,21 +45,23 @@ public class GrettingsController {
     public ResponseEntity<JsonNode> getDadosJson() {
         ObjectMapper mapper = new ObjectMapper();
 
-        // Tenta ler o arquivo JSON
         try (InputStream inputStream = getClass().getResourceAsStream("/file.json")) {
             if (inputStream == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body(mapper.createObjectNode().put("error", "Arquivo 'dados.json' não encontrado."));
             }
 
-            // Carrega o JSON no JsonNode
             JsonNode jsonNode = mapper.readTree(inputStream);
             return ResponseEntity.ok(jsonNode);
 
         } catch (Exception e) {
-            // Retorna um erro 500 caso ocorra uma exceção
             JsonNode errorNode = mapper.createObjectNode().put("error", "Erro ao ler o arquivo JSON.");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorNode);
         }
+    }
+
+    @GetMapping("/content_negotiation")
+    public Grettings getGrettings() {
+        return new Grettings(1, "1");
     }
 }

@@ -1,18 +1,22 @@
 package br.com.matheus.spring.learning.matheuslearningjava18spring3.service;
 
+import br.com.matheus.spring.learning.matheuslearningjava18spring3.controllers.PersonController;
 import br.com.matheus.spring.learning.matheuslearningjava18spring3.data.vo.v1.PersonVO;
 import br.com.matheus.spring.learning.matheuslearningjava18spring3.data.vo.v2.PersonVOV2;
+import br.com.matheus.spring.learning.matheuslearningjava18spring3.exceptions.RequiredObjectIsNullException;
 import br.com.matheus.spring.learning.matheuslearningjava18spring3.exceptions.ResourceNotFoundException;
 import br.com.matheus.spring.learning.matheuslearningjava18spring3.mapper.DozerMapper;
 import br.com.matheus.spring.learning.matheuslearningjava18spring3.mapper.custom.PersonMapper;
 import br.com.matheus.spring.learning.matheuslearningjava18spring3.models.Person;
 import br.com.matheus.spring.learning.matheuslearningjava18spring3.repositories.PersonRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 /*
     A anotacao @Service serve para fazer com que sua classe se torne injetavel.
@@ -29,11 +33,13 @@ import java.util.logging.Logger;
 @Service
 public class PersonService {
 
-    @Autowired
-    PersonRepository repository;
+    private final PersonRepository repository;
+    private final PersonMapper personMapper;
 
-    @Autowired
-    PersonMapper personMapper;
+    public PersonService(PersonRepository repository, PersonMapper personMapper) {
+        this.repository = repository;
+        this.personMapper = personMapper;
+    }
 
     // private final AtomicLong counter = new AtomicLong();
     // Logs "personalizados" para cada classe
@@ -41,50 +47,101 @@ public class PersonService {
 
     public PersonVO findById(Long id) {
         logger.info("Finding one person!");
+
         Person person = repository
                 .findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Resource not found!"));
-        return DozerMapper.parseObject(person, PersonVO.class);
+
+        PersonVO personVO = DozerMapper.parseObject(person, PersonVO.class);
+
+        personVO.add(linkTo(methodOn(PersonController.class).getFindById(personVO.getKey())).withSelfRel());
+
+        return personVO;
         // return getPersonMock();
     }
 
     public List<PersonVO> findAll() {
         logger.info("Returning all the people!");
+
         List<Person> personList = repository.findAll();
-        return DozerMapper.parseListObject(personList, PersonVO.class);
+
+        List<PersonVO> personVOList = DozerMapper.parseListObject(personList, PersonVO.class);
+
+        personVOList.stream().forEach(
+                // Esta manipulando a instancia personVO
+                // Metodo Add recebe o retorno de um objeto Link
+                personVO -> personVO.add(
+                                // Link eh retornado pelo metodo linkTo que vai adicionar um array com o nome "link" a instancia
+                                linkTo(
+                                // Method on, vai receber a controller e tambem o metodo chamado
+                                methodOn(PersonController.class)
+                                        // Com estes dois valores, ele consegue encontrar valor da URL
+                                        // Ex: http://localhost:8080/j18s3/api/v1/person/22"
+                                        .getFindById(personVO.getKey()))
+                                // E aqui estou colocando mais um atributo dentro de "links" que marca que eh a chamada dele mesmo "self"
+                                .withSelfRel())
+        );
+
+        return personVOList;
         // return getAllPeopleMock();
     }
 
     public PersonVO create(PersonVO personVO) {
+        if (personVO == null) throw new RequiredObjectIsNullException();
+
         logger.info("Creating one person!");
+
         Person person = DozerMapper.parseObject(personVO, Person.class);
-        return DozerMapper.parseObject(repository.save(person), PersonVO.class);
+
+        PersonVO personVOConverted = DozerMapper.parseObject(repository.save(person), PersonVO.class);
+
+        personVOConverted.add(linkTo(methodOn(PersonController.class).postCreatePerson(personVO)).withSelfRel());
+
+        return personVOConverted;
         //return createPersonMock(person);
     }
 
     public PersonVOV2 createV2(PersonVOV2 personVOV2) {
         logger.info("Creating one person! V2");
+
         Person person = personMapper.convertPersonVOV2ToPerson(personVOV2);
-        return personMapper.convertPersonToPersonVOV2(repository.save(person));
+
+        PersonVOV2 personVOV2Converted = personMapper.convertPersonToPersonVOV2(repository.save(person));
+
+        // personVOV2Converted.add(linkTo(methodOn(PersonController.class).postCreatePersonV2(personVOV2)).withSelfRel());
+
+        return personVOV2Converted;
     }
 
     public PersonVO update(PersonVO personVO) {
+        if (personVO == null) throw new RequiredObjectIsNullException();
+
         logger.info("Updating one person!");
-        Person entityPerson = repository.findById(personVO.getId())
+
+        Person entityPerson = repository.findById(personVO.getKey())
                 .orElseThrow(() -> new ResourceNotFoundException("Resource not found!"));
+
         entityPerson.setFirstName(personVO.getFirstName());
         entityPerson.setLastName(personVO.getLastName());
         entityPerson.setAddress(personVO.getAddress());
         entityPerson.setGender(personVO.getGender());
-        return DozerMapper.parseObject(repository.save(entityPerson), PersonVO.class);
+
+        PersonVO personVOConverted = DozerMapper.parseObject(repository.save(entityPerson), PersonVO.class);
+
+        personVOConverted.add(linkTo(methodOn(PersonController.class).putUpdatesPerson(personVO)).withSelfRel());
+
+        return personVOConverted;
         //return updatePersonMock(person);
     }
 
     public void delete(Long id) {
         logger.info("Deleting one person!");
+
         Person entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Resource not found!"));
+
         repository.delete(entity);
+
         //return deletePersonByIdMock(id);
     }
 
@@ -126,5 +183,4 @@ public class PersonService {
     private String deletePersonByIdMock(String id) {
         return "Deleted!";
     }
-
 }

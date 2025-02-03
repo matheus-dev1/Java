@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/java_spring_curso?useTimezone=true&serverTimezone=UTC
+    password: root@4321
+  jpa:
+    open-in-view: 'false'
+    properties:
+      hibernate:
+        format_sql: 'true'
+        show_sql: 'true'
+    hibernate:
+      ddl-auto: none
+server:
+  servlet:
+    context-path: /j18s3
+# Ative os endpoints do Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: mappings
+# Documentar apenas estes paths deste regex
+springdoc:
+  pathsToMatch: /api/v1/**/**
+  swagger-ui:
+    user-root-path: true

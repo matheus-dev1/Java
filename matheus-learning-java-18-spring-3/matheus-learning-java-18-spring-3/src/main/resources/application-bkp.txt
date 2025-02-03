@@ -19,3 +19,5 @@ spring.jpa.properties.hibernate.show_sql = true
 #Formatar o codigo SQL exibido
 spring.jpa.properties.hibernate.format_sql = true
 spring.jpa.open-in-view = false
+
+server.servlet.context-path=/j18s3
